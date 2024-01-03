@@ -2,11 +2,13 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 const bcrypt = require("bcryptjs");
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UsersService){}
+    constructor(private readonly userService: UsersService,
+        private readonly jwtService: JwtService){}
     
     async login({Email,Password}:LoginDto){
         const user =  await this.userService.finfOneByEmail(Email)
@@ -18,7 +20,14 @@ export class AuthService {
         if(!isPasswordValid){
             throw new UnauthorizedException('La contraseña está incorrecta'); 
         }
-        return user;
+
+        const payload = {email: user.Email};
+
+        const token = await this.jwtService.signAsync(payload)
+        return {
+            token,
+            Email
+        }
     }    
 
     async register(registerDto: RegisterDto){  
