@@ -15,7 +15,11 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto) {
     const user = this.userRepository.create(createUserDto);
-    return this.userRepository.save(user);;
+    return this.userRepository.save(user);
+  }
+
+  finfOneByEmail(Email:string){
+    return this.userRepository.findOneBy({Email})
   }
 
   ReturData(){

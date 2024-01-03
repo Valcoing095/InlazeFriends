@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'inlazeDB',
       autoLoadEntities : true,
       synchronize: true
-    })
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

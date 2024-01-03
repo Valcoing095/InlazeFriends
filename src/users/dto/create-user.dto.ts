@@ -10,7 +10,4 @@ export class CreateUserDto {
     Email
     @IsString()
     Password
-    @IsInt()
-    posts
-
 }
