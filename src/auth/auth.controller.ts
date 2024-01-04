@@ -1,4 +1,5 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Post, Body, Get, UseGuards,Header } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -20,6 +21,7 @@ export class AuthController {
 
 
     @Post('register')
+    @Header('Access-Control-Allow-Origin', 'http://example.com')
     register(
         @Body() 
         registerDto:RegisterDto
